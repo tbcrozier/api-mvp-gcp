@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-api
+  template:
+    metadata:
+      labels:
+        app: flask-api
+    spec:
+      serviceAccountName: flask-sa
+      containers:
+      - name: flask-api
+        image: us-central1-docker.pkg.dev/vocal-spirit-372618/mvp-docker-repo/mvp-healthcare-api:v2
+        imagePullPolicy: Always      # ensures it pulls the new image
+        ports:
+        - containerPort: 8080
+

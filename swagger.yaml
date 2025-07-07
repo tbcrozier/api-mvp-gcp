@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: MVP Healthcare API
+  version: 1.0.0
+paths:
+  /patients:
+    get:
+      summary: List all patients
+      responses:
+        '200':
+          description: A JSON array of patients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'
+    post:
+      summary: Create a patient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '201':
+          description: Patient created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+  /patients/{patientId}:
+    get:
+      summary: Get patient by ID
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single patient
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+components:
+  schemas:
+    Patient:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required: [name]

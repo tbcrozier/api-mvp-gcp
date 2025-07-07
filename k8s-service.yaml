@@ -1,0 +1,28 @@
+# k8s-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-api
+spec:
+  type: ClusterIP
+  selector:
+    app: flask-api
+  ports:
+  - port: 80
+    targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: flask-api
+            port:
+              number: 80
