@@ -3,7 +3,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy app code and key
-COPY app.py requirements.txt key.json ./
+COPY app.py requirements.txt ./
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
